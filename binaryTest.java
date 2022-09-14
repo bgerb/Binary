@@ -123,4 +123,32 @@ class binaryTest {
         assertNotEquals(0, fortest1.getRoot().minimum());
 
     }
+
+    @Test
+    void hardtestdelete() {
+        binary fortest1 = new binary();
+        node thing = new node(30);
+        fortest1.setRoot(thing);
+        int count = 0;
+        for(int i =0; i<300; ++i) {
+            int toadd = (int) (Math.random()*500*i);
+            node oldrep = thing;
+            if(null == fortest1.search(fortest1.getRoot(),toadd)) {
+                node rep = new node(toadd);
+                fortest1.insert(rep);
+                ++count;
+                if (count > 50) {
+                    int old = oldrep.getData();
+                    fortest1.delete((oldrep));
+
+                    assertEquals(null, fortest1.search(fortest1.getRoot(), old));
+                }
+                oldrep = rep;
+            }
+        }
+
+        fortest1.delete((fortest1.getRoot().minimum()));
+        assertNotEquals(0, fortest1.getRoot().minimum());
+
+    }
 }
